@@ -3,9 +3,11 @@ package com.carrental.rateshop.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,16 +29,16 @@ public class FleetController {
 	@GetMapping("/health")
 	public String health()
 	{
-		return "Hello";
+		return "Fleet service online...";
 	}
 
-	@PostMapping("add-car")
+	@PutMapping("add-car")
 	public Car addRate(@RequestBody Car car) {
 		return fleetService.addCar(car);
 	}
 	
 	@GetMapping("all-cars")
-	public List<Car> getAllRates() {
+	public List<Car> getAllCars() {
 		
 		return fleetService.getAllCars();
 	}
@@ -57,17 +59,15 @@ public class FleetController {
         return fleetService.getCars(carNo, carYear, carMake, carModel, carTrim, carBody, carTransmission, carCondition, carOdometer, carFleetNo);
 	}
 	
-//	@PostMapping("/update-car"){
-//		
-//	}
+
 	
     @PostMapping("/predict-rent")
-    public ResponseEntity<?> predictRent(@RequestBody RentPredictionRequest request) {
+    public ResponseEntity<RentPredictionResponse> predictRent(@RequestBody RentPredictionRequest request) {
         try {
             RentPredictionResponse rent = fleetService.predictRent(request);
             return ResponseEntity.ok(rent);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }
