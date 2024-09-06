@@ -110,6 +110,15 @@ public class RentPredictionRequest {
 	public void setCarTransmission(String carTransmission) {
 		this.carTransmission = carTransmission;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "RentPredictionRequest [carYear=" + carYear + ", carMake=" + carMake + ", carTrim=" + carTrim
+				+ ", carBody=" + carBody + ", carCondition=" + carCondition + ", carOdometer=" + carOdometer
+				+ ", carTransmission=" + carTransmission + "]";
+	}
 	
 	
 
