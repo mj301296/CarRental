@@ -37,6 +37,7 @@ public class FleetController {
             if (car == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Car details cannot be null.");
             }
+            System.out.println(car.toString());
             Car addedCar = fleetService.addCar(car);
             return ResponseEntity.ok(addedCar);
         } catch (Exception e) {
@@ -78,9 +79,11 @@ public class FleetController {
             @RequestParam(required = false) String carTransmission,
             @RequestParam(required = false) Integer carCondition,
             @RequestParam(required = false) Float carOdometer,
-            @RequestParam(required = false) String carFleetNo) {
+            @RequestParam(required = false) String carFleetNo,
+    		@RequestParam(required = false) Integer carGasReading,
+			@RequestParam(required = false) String carStatus){
         try {
-            List<Car> cars = fleetService.getCars(carNo, carYear, carMake, carModel, carTrim, carBody, carTransmission, carCondition, carOdometer, carFleetNo);
+            List<Car> cars = fleetService.getCars(carNo, carYear, carMake, carModel, carTrim, carBody, carTransmission, carCondition, carOdometer, carFleetNo, carGasReading, carStatus);
             return ResponseEntity.ok(cars);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error searching cars: " + e.getMessage());

@@ -9,17 +9,28 @@ import lombok.Data;
 @Entity
 public class Car {
 	@Id
+	@Column(nullable = false)
 	private String carNo;
+	@Column(nullable = false)
 	private int carYear;
+	@Column(nullable = false)
 	private String carMake;
 	private String carModel;
+	@Column(nullable = false)
 	private String carTrim;
+	@Column(nullable = false)
 	private String carBody;
+	@Column(nullable = false)
 	private	String carTransmission;
+	@Column(nullable = false)
 	private int carCondition;
+	@Column(nullable = false)
 	private float carOdometer;
+	private Integer carGasReading;
 	@Column(unique= true)
 	private String carFleetNo;
+	@Column(nullable = false)
+	private String carStatus;
 	private float carSelllingPrice;
 	private float carHourlyRentalPrice;
 	private float carDailyRentalPrice;
@@ -115,16 +126,29 @@ public class Car {
 	public void setCarMonthlyRentalPrice(float carMonthlyRentalPrice) {
 		this.carMonthlyRentalPrice = carMonthlyRentalPrice;
 	}
+	public Integer getCarGasReading() {
+		return carGasReading;
+	}
+	public void setCarGasReading(Integer carGasReading) {
+		this.carGasReading = carGasReading;
+	}
+	public String getCarStatus() {
+		return carStatus;
+	}
+	public void setCarStatus(String carStatus) {
+		this.carStatus = carStatus;
+	}
 	@Override
 	public String toString() {
-		return "Fleet [carNo=" + carNo + ", carYear=" + carYear + ", carMake=" + carMake + ", carModel=" + carModel
+		return "Car [carNo=" + carNo + ", carYear=" + carYear + ", carMake=" + carMake + ", carModel=" + carModel
 				+ ", carTrim=" + carTrim + ", carBody=" + carBody + ", carTransmission=" + carTransmission
-				+ ", carCondition=" + carCondition + ", carOdometer=" + carOdometer + ", carFleetNo=" + carFleetNo
-				+ ", carSelllingPrice=" + carSelllingPrice + ", carHourlyRentalPrice=" + carHourlyRentalPrice
-				+ ", carDailyRentalPrice=" + carDailyRentalPrice + ", carWeeklyRentalPrice=" + carWeeklyRentalPrice
-				+ ", carMonthlyRentalPrice=" + carMonthlyRentalPrice + "]";
+				+ ", carCondition=" + carCondition + ", carOdometer=" + carOdometer + ", carGasReading=" + carGasReading
+				+ ", carFleetNo=" + carFleetNo + ", carStatus=" + carStatus + ", carSelllingPrice=" + carSelllingPrice
+				+ ", carHourlyRentalPrice=" + carHourlyRentalPrice + ", carDailyRentalPrice=" + carDailyRentalPrice
+				+ ", carWeeklyRentalPrice=" + carWeeklyRentalPrice + ", carMonthlyRentalPrice=" + carMonthlyRentalPrice
+				+ "]";
 	}
-	
+
 	
 	
 	

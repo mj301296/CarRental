@@ -77,7 +77,7 @@ public class FleetService {
     }
 
     public List<Car> getCars(String carNo, Integer carYear, String carMake, String carModel, String carTrim,
-                             String carBody, String carTransmission, Integer carCondition, Float carOdometer, String carFleetNo) {
+                             String carBody, String carTransmission, Integer carCondition, Float carOdometer, String carFleetNo, Integer carGasReading, String carStatus) {
         try {
             Specification<Car> spec = Specification.where(CarSpecifications.hasCarNo(carNo))
                     .and(CarSpecifications.hasCarYear(carYear))
@@ -88,7 +88,9 @@ public class FleetService {
                     .and(CarSpecifications.hasCarTransmission(carTransmission))
                     .and(CarSpecifications.hasCarCondition(carCondition))
                     .and(CarSpecifications.hasCarOdometer(carOdometer))
-                    .and(CarSpecifications.hasCarFleetNo(carFleetNo));
+                    .and(CarSpecifications.hasCarFleetNo(carFleetNo))
+                    .and(CarSpecifications.hasCarGasReading(carGasReading))
+                    .and(CarSpecifications.hasCarStatus(carStatus));
 
             return fleetDao.findAll(spec);
         } catch (DataAccessException e) {

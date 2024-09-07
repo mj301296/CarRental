@@ -62,4 +62,14 @@ public class CarSpecifications {
         return (root, query, criteriaBuilder) -> 
             carFleetNo == null ? null : criteriaBuilder.equal(root.get("carFleetNo"), carFleetNo);
     }
+
+	public static Specification<Car> hasCarGasReading(Integer carGasReading) {
+        return (root, query, criteriaBuilder) -> 
+        carGasReading == null ? null : criteriaBuilder.equal(root.get("carGasReading"), carGasReading);
+	}
+
+	public static Specification<Car> hasCarStatus(String carStatus) {
+		return (root, query, criteriaBuilder) -> 
+		carStatus == null ? null : criteriaBuilder.equal(root.get("carStatus"), carStatus);
+	}
 }
