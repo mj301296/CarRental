@@ -1,5 +1,3 @@
-# rateshop-backend
-
 # Rateshop Backend
 
 This repository is part of the **Car Rental Front Office Operations** application, which consists of the following components:
