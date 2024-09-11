@@ -47,7 +47,7 @@ public class FleetService {
 
         try {
             // Call the Rent Predictor microservice
-            return restTemplate.postForObject(rentPredictorUrl, rentRequest, RentPredictionResponse.class);
+            return restTemplate.postForObject(rentPredictorUrl + "/predict", rentRequest, RentPredictionResponse.class);
         } catch (RestClientException e) {
             throw new RuntimeException("Error connecting to Rent Predictor service: " + e.getMessage(), e);
         } catch (Exception e) {

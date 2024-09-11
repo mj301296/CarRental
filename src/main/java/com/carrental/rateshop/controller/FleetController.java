@@ -44,7 +44,7 @@ public class FleetController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding car: " + e.getMessage());
         }
     }
-    
+
     @DeleteMapping("delete-car")
     public ResponseEntity<?> deleteCar(@RequestParam String carNo) {
         try {
@@ -54,17 +54,20 @@ public class FleetController {
             String message = fleetService.deleteCar(carNo);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting car: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error deleting car: " + e.getMessage());
         }
     }
 
     @GetMapping("all-cars")
     public ResponseEntity<?> getAllCars() {
         try {
+            System.out.println("All cars request");
             List<Car> cars = fleetService.getAllCars();
             return ResponseEntity.ok(cars);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching cars: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error fetching cars: " + e.getMessage());
         }
     }
 
@@ -80,13 +83,15 @@ public class FleetController {
             @RequestParam(required = false) Integer carCondition,
             @RequestParam(required = false) Float carOdometer,
             @RequestParam(required = false) String carFleetNo,
-    		@RequestParam(required = false) Integer carGasReading,
-			@RequestParam(required = false) String carStatus){
+            @RequestParam(required = false) Integer carGasReading,
+            @RequestParam(required = false) String carStatus) {
         try {
-            List<Car> cars = fleetService.getCars(carNo, carYear, carMake, carModel, carTrim, carBody, carTransmission, carCondition, carOdometer, carFleetNo, carGasReading, carStatus);
+            List<Car> cars = fleetService.getCars(carNo, carYear, carMake, carModel, carTrim, carBody, carTransmission,
+                    carCondition, carOdometer, carFleetNo, carGasReading, carStatus);
             return ResponseEntity.ok(cars);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error searching cars: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error searching cars: " + e.getMessage());
         }
     }
 
@@ -101,7 +106,8 @@ public class FleetController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error predicting rent: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error predicting rent: " + e.getMessage());
         }
     }
 }

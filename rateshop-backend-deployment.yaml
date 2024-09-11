@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rateshop-backend-deployment
+  labels:
+    app: rateshop-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rateshop-backend
+  template:
+    metadata:
+      labels:
+        app: rateshop-backend
+    spec:
+      containers:
+        - name: rateshop-backend
+          image: 522814708632.dkr.ecr.us-east-2.amazonaws.com/rateshop-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: RATESHOP_FRONTEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: RATESHOP_FRONTEND_URL
+            - name: RENT_PREDICTOR_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: RENT_PREDICTOR_URL
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: DB_URL
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: DB_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rateshop-backend-service
+spec:
+  selector:
+    app: rateshop-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
