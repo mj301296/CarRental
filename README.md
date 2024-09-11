@@ -44,11 +44,34 @@ The **Rateshop Backend** is a Spring Boot application designed to manage and mai
 - **`rateshop-backend-deployment.yaml`**: Kubernetes deployment configuration for deploying the application in a Kubernetes cluster.
 - **`pom.xml`**: Maven project descriptor specifying project dependencies and build configurations.
 
+### API Endpoints
+
+#### **Backend**
+
+- `GET fleet/all-cars`: Retrieve all cars.
+- `PUT fleet/add-car`: Add or Update a car.
+- `GET fleet/search`: Search for cars with specific criteria.
+- `DELETE fleet/{carNo}`: Delete a car by its number.
+- `POST fleet/predit-rent`: Calls CarRentalPredictionApi app to predict rental prices based on car attributes
+
+
 ## Installation
 
 To get started with the Rateshop Backend, follow these steps:
 
-1. **Build the Project**
+1. **Configure Environment Variables**
+
+   Create a `.env` file in the root directory and add the following variables:
+
+    ```properties
+    DB_URL=jdbc:postgresql://localhost:5432/rateshop
+    DB_USERNAME=postgres
+    DB_PASSWORD=postgres
+    RENT_PREDICTOR_URL=http://localhost:8000
+    RATESHOP_FRONTEND_URL=http://localhost:3000
+    ```
+
+2.  **Build the Project**
 
     Build the project using Maven:
 
@@ -56,7 +79,7 @@ To get started with the Rateshop Backend, follow these steps:
     ./mvnw clean package
     ```
 
-2. **Build the Docker Image**
+3. **Build the Docker Image**
 
     Create a Docker image of the application:
 
@@ -81,12 +104,20 @@ To get started with the Rateshop Backend, follow these steps:
     Test the API endpoint using `curl`:
 
     ```bash
-    curl -X GET "http://localhost:8080/api/fleet" -H "Accept: application/json"
+    curl -X POST "http://localhost:8080/fleet/predict-rent" \
+    -H "Content-Type: application/json" \
+    -d '{
+        "year": 2013,
+        "make": "Toyota",
+        "trim": "LE",
+        "body": "Sedan",
+        "condition": 4,
+        "odometer": 15000.5,
+        "transmission": "automatic"
+    }'
     ```
 
 ## Kubernetes Deployment
 
 For deploying the application on Kubernetes, refer to the README of [**Rateshop Frontend**](https://github.com/mj301296/rateshop-frontend).
 
-
-For steps to set up Kubernetes, refer to the README of [**Rateshop Frontend**](https://github.com/mj301296/rateshop-frontend).
